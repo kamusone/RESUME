@@ -732,7 +732,8 @@
         <div class="contact-container">
             <h2 class="section-title">Contactez-moi</h2>
             <p class="section-subtitle">Discutons de votre prochain projet</p>
-            <form class="contact-form" action="https://formspree.io/f/mojdndlj" method="POST">
+            <<form class="contact-form" name="contact" method="POST" data-netlify="true">
+                <input type="hidden" name="form-name" value="contact">
                 <div class="form-group">
                     <label for="name">Nom complet</label>
                     <input type="text" name="name" id="name" required placeholder="John Doe">
