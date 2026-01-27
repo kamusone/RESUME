@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio - Cloud Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --accent: #06b6d4;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--dark);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section avec Photo */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 5%;
+            margin-top: 60px;
+            background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1200px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-photo {
+            flex-shrink: 0;
+        }
+
+        .profile-photo {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: white;
+            box-shadow: 0 20px 60px rgba(37, 99, 235, 0.4);
+            border: 5px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-content {
+            color: white;
+        }
+
+        .hero-subtitle {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .cta-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.6);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-secondary:hover {
+            border-color: var(--accent);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-light {
+            background: var(--light);
+        }
+
+        .section-dark {
+            background: var(--dark);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
+        }
+
+        .section-dark .section-title {
+            color: white;
+        }
+
+        .section-dark .section-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Compétences */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .skill-card h3 {
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* Certifications */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .cert-card {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(124, 58, 237, 0.05));
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 2px solid rgba(37, 99, 235, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.2);
+            border-color: var(--primary);
+        }
+
+        .cert-badge {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .cert-card h3 {
+            color: #64748b;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-issuer {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-date {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .cert-id {
+            background: rgba(37, 99, 235, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            display: inline-block;
+            font-family: monospace;
+        }
+
+        /* Projets */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .project-content p {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Contact */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 968px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-photo {
+                width: 250px;
+                height: 250px;
+                font-size: 6rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .profile-photo {
+                width: 200px;
+                height: 200px;
+                font-size: 4.5rem;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Kamel BENAYAD</div>
+        <ul class="nav-links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#projets">Projets</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section avec Photo -->
+    <section class="hero" id="accueil">
+        <div class="hero-container">
+            <div class="hero-photo">
+                <div class="profile-photo">
+                    <img src="/profile.jpg" alt="Kamel BENAYAD" 
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-subtitle"><span class="typing-animation" id="typingText"></span></div>
+                <h1>Qui suis-je</h1>
+                <p class="hero-description">
+                    Data Engineer senior avec 10 ans d’expérience, spécialisé dans les migrations data vers le cloud et la structuration de plateformes data complexes.
+                    J’interviens comme tech lead ou référent data, avec une forte dimension fonctionnelle et métier idéalement sur GCP ou Azure.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="cta-button cta-primary">Me Contacter</a>
+                    <a href="/cv.pdf" target="_blank" class="cta-button cta-secondary">📄Voir mon CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compétences -->
+    <section id="competences" class="section-light">
+        <h2 class="section-title">Stack Techniques et Fonctionnelles</h2>
+        <<p class="section-subtitle">Cloud data & IA</p>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <span class="skill-icon">☁️</span>
+                <h3>Cloud Platforms</h3>
+                <p>Azure, Google Cloud Platform. Architecture, Databricks, Data Factory, Azure Function, ADLS, Synapse, BigQuery,GCS .</p>
+            </div>
+            <div class="skill-card">
+                <span class="skill-icon">🔄</span>
+                <h3>Data Engineering</h3>
+                <p>Big Data,ETL/ELT, batch/streaming,Data Vault2.0, </p>
+            </div>
+            <div class="skill-card">
+                <span class="skill-icon">🐳</span>
+                <h3>DevOps & CI/CD</h3>
+                <p>Jenkins, GitLab CI, GitHub Actions</p>
+            </div>
+            <div class="skill-card">
+                <span class="skill-icon">📜</span>
+                <h3>Infrastructure as Code</h3>
+                <p>Terraform, Ansible.</p>
+            </div>
+            <div class="skill-card">
+                <span class="skill-icon">📊</span>
+                <h3>Agile</h3>
+                <p>Srum, canban, SAFe</p>
+            </div>
+            <div class="skill-card">
+                <span class="skill-icon">🔒</span>
+                <h3>Security & Compliance</h3>
+                <p>IAM, Security Groups, Vault.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications" class="section-dark">
+        <h2 class="section-title">Certifications</h2>
+        <p class="section-subtitle">Mes qualifications professionnelles</p>
+        <div class="certifications-grid">
+            <div class="cert-card">
+                <div class="cert-badge"><img src="/image/azure-solution.png"  
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
+                <h3>Microsoft Azure Solutions Architect Expert</h3>
+                <div class="cert-issuer">Microsoft Azure</div>
+                <div class="cert-date">Obtenue : juillet 2020</div>
+                <div class="cert-id">ID:</div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-badge"><img src="/image/databricks.png"  
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 0%;"></div>
+                <h3>Databricks Certified Data Engineer Associate</h3>
+                <div class="cert-issuer">Databricks</div>
+                <div class="cert-date">Obtenue : Mars 2024</div>
+                <div class="cert-id"></div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-badge"><img src="/image/safe.png"  
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
+                <h3>Certified SAFe® 6 Practitioner</h3>
+                <div class="cert-issuer">SAFe by Scaled Agile, Inc</div>
+                <div class="cert-date">Obtenue : Juin 2025</div>
+                <div class="cert-id"></div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-badge"><img src="/image/datascience.png"  
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
+                <h3>Microsoft Certified: Azure Data Scientist Associate</h3>
+                <div class="cert-issuer">Microsoft</div>
+                <div class="cert-date">Obtenue : janvier 2020</div>
+                <div class="cert-id"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projets -->
+    <section id="projets" class="section-light">
+        <h2 class="section-title">Mes Projets</h2>
+        <p class="section-subtitle">Réalisations et cas d'usage</p>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image"><img src="/image/gcp.png"  
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 0%;"></div>
+                <div class="project-content">
+                    <h3>Data Vault on Google Cloud (GCP)</h3>
+                    <p>Conception et implémentation d’un modèle Data Vault from scratch dans le cloud GCP.</p>
+                    <div class="project-tags">
+                        <span class="tag">GCP</span>
+                        <span class="tag">Data Vault 2.0</span>
+                        <span class="tag">dbt</span>
+                        <span class="tag">Azure DevOps</span>
+                        <span class="tag">BigQuery</span>
+                        <span class="tag">Terraform</span>
+                        <span class="tag">Agile SCRUM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image"><img src="/image/azure.png"  
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 0%;"></div>
+                <div class="project-content">
+                    <h3>Migration application on prem vers une architecture Hybrid avec le Cloud Microsoft Azure</h3>
+                    <p>Refonte et industrialisation d'une application Legacy sur le cloud Microsoft Azure.</p>
+                    <div class="project-tags">
+                        <span class="tag">Microsoft Azure</span>
+                        <span class="tag">ADLS</span>
+                        <span class="tag">Databricks</span>
+                        <span class="tag">Synapse</span>
+                        <span class="tag">GitLab</span>
+                        <span class="tag">Data Factory</span>
+                        <span class="tag">Terraform</span>
+                        <span class="tag">Azure Function</span>
+                        <span class="tag">Jenkins</span>
+                        <span class="tag">ControlM</span>
+                        <span class="tag">Agile SAFe</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image"><img src="/image/azure.png"  
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 0%;"></div>
+                <div class="project-content">
+                    <h3>Implementation d'une data plateforme</h3>
+                    <p>Conception d'une architecture Data full Azure</p>
+                    <div class="project-tags">
+                        <span class="tag">Microsoft Azure</span>
+                        <span class="tag">ADLS</span>
+                        <span class="tag">Databricks</span>
+                        <span class="tag">Synapse</span>
+                        <span class="tag">GitLab</span>
+                        <span class="tag">Data Factory</span>
+                        <span class="tag">Power BI</span>
+                        <span class="tag">Agile SAFe</span>
+                    </div>
+                </div>
+            </div>      
+            <div class="project-card">
+                    <div class="project-image"><img src="/image/azure.png"  
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 0%;"></div>
+                    <div class="project-content">
+                        <h3>Implementation d'une data plateforme</h3>
+                        <p>Conception d'une architecture Data full Azure</p>
+                        <div class="project-tags">
+                            <span class="tag">Microsoft Azure</span>
+                            <span class="tag">ADLS</span>
+                            <span class="tag">Databricks</span>
+                            <span class="tag">Synapse</span>
+                            <span class="tag">GitLab</span>
+                            <span class="tag">Power BI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section-dark">
+        <div class="contact-container">
+            <h2 class="section-title">Contactez-moi</h2>
+            <p class="section-subtitle">Discutons de votre prochain projet</p>
+            <form class="contact-form" action="https://formspree.io/f/mojdndlj" method="POST">
+                <div class="form-group">
+                    <label for="name">Nom complet</label>
+                    <input type="text" name="name" id="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" required placeholder="Votre message..."></textarea>
+                </div>
+                <button type="submit" class="submit-button">Envoyer le Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/kamel-benayad/" class="social-link" title="LinkedIn"><img src="/image/logolinkedin.png"  
+                        style="width: 100%; height: 100%; border-radius: 50%;">
+            </a>
+            <a href="mailto:kamel.benayad@bydconseil.com" class="social-link" title="Email"><img src="/image/logogmail.jpg"  
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            </a>
+        </div>
+        <p>© 2026 KAMEL BENAYAD. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Animation de typing pour le hero-subtitle
+        const roles = [
+            "Cloud Data Engineer",
+            "Product Owner Technique",
+            "Analytics Engineer",
+            "Solution Architect"
+        ];
+        
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 50;
+        
+        function typeEffect() {
+            const currentRole = roles[roleIndex];
+            const typingElement = document.getElementById('typingText');
+            
+            if (!isDeleting) {
+                typingElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+                
+                if (charIndex === currentRole.length) {
+                    isDeleting = true;
+                    typingSpeed = 2000; // Pause avant d'effacer
+                }
+            } else {
+                typingElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+                
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    typingSpeed = 50; // Pause avant le prochain mot
+                }
+            }
+            
+            setTimeout(typeEffect, typingSpeed);
+        }
+        
+        // Démarrer l'animation au chargement
+        window.addEventListener('load', () => {
+            setTimeout(typeEffect, 500);
+        });
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Merci pour votre message ! Je vous répondrai dans les plus brefs délais.');
+            event.target.reset();
+        }
+
+        // Smooth scroll avec offset pour la nav fixe
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Effet d'animation au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-card, .cert-card, .project-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
